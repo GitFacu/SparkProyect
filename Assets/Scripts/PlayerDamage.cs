@@ -38,7 +38,7 @@ public class PlayerDamage : MonoBehaviour
             {
                 if (melee == true && boomerangFunctions != null)
                 {
-                    damageAmountMelee = damageAmount * boomerangFunctions.multi;
+                    damageAmountMelee = damageAmount * boomerangFunctions.Multi;
                     health.TakeDamage((int)damageAmountMelee);
                 }
 

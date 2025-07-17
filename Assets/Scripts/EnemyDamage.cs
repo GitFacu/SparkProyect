@@ -2,26 +2,16 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    public int damageAmount = 10;
-    public string targetTag = "Player";
-
+    [SerializeField] int _damageAmount = 10;
+    
     void OnCollisionEnter(Collision collision)
     {
-        HandleCollision(collision.gameObject);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        HandleCollision(other.gameObject);
-    }
-
-    private void HandleCollision(GameObject other)
-    {
-        if (other.CompareTag(targetTag))
+        if (collision.gameObject.GetComponent<PlayerHealth>())
         {
-           other.gameObject.GetComponent<IDamage>().TakeDamage(damageAmount);
-            
-            
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(_damageAmount);
         }
     }
+
+
+    
 }

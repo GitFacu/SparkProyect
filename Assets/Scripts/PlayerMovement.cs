@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkSpeed = 5f;
-    public float runSpeed = 9f;
-    public float mouseSensitivity = 5f;
-    public float jumpForce = 1.5f;
-    public float gravity = -9.81f;
-    public float heaviness = 2.5f;  // Factor para hacer la caída más rápida
-    public float lowJumpMultiplier = 2f; // Para saltos más bajos si no se mantiene el botón de salto
+    [SerializeField] float walkSpeed = 5f;
+    [SerializeField] float runSpeed = 9f;
+    [SerializeField] float mouseSensitivity = 5f;
+    [SerializeField] float jumpForce = 1.5f;
+    [SerializeField] float gravity = -9.81f;
+    [SerializeField] float heaviness = 2.5f;  // Factor para hacer la caída más rápida
+    [SerializeField] float lowJumpMultiplier = 2f; // Para saltos más bajos si no se mantiene el botón de salto
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        ChangeGravity();
     }
 
     private void OnDisable()
@@ -62,15 +63,20 @@ public class PlayerMovement : MonoBehaviour
 
         // Aumentar la velocidad de caída si no se está saltando
         if (velocity.y < 0)
-            velocity.y += gravity * heaviness * Time.deltaTime;
+            velocity.y += Physics.gravity.y * heaviness * Time.deltaTime;
         // Modificar la velocidad de salto si no se mantiene el botón de salto
         else if (velocity.y > 0 && !Input.GetButton("Jump"))
-            velocity.y += gravity * lowJumpMultiplier * Time.deltaTime;
+            velocity.y += Physics.gravity.y * lowJumpMultiplier * Time.deltaTime;
         else
-            velocity.y += gravity * Time.deltaTime;
+            velocity.y += Physics.gravity.y * Time.deltaTime;
 
         // --- Movimiento final ---
         controller.Move((move + velocity) * Time.deltaTime);
+    }
+
+    private void ChangeGravity()
+    {
+        Physics.gravity = new Vector3(0, gravity, 0);
     }
 
     private void OnDead()

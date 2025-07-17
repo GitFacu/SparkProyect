@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyElement : MonoBehaviour, IDamage
 {
-    [SerializeField] private float elementHP = 100;
+    [SerializeField] private float _health = 100;
 
     public void Die()
     {
@@ -13,8 +13,8 @@ public class DestroyElement : MonoBehaviour, IDamage
 
     public void TakeDamage(int danioRecibido)
     {
-        elementHP -= danioRecibido;
-        if (elementHP <= 0)
+        _health -= danioRecibido;
+        if (_health <= 0)
         {
             Die();
         }

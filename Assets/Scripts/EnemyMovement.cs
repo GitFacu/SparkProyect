@@ -94,15 +94,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    /*private void MoveTowards(Vector3 target, float speed)
-    {
-        Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.deltaTime);
-        rb.MovePosition(newPos);
-
-        
-
-
-    }*/
+    
 
     private void MoveTowards(Vector3 target, float speed)
     {

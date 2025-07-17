@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour, IDamage
 {
     public static event Action OnDead;
-    [SerializeField] private HUDController hud; // ? Drag en el Inspector
+    //[SerializeField] private HUDController hud; // ? Drag en el Inspector
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
     public int CurrentHealth
@@ -37,25 +37,15 @@ public class PlayerHealth : MonoBehaviour, IDamage
     public void Die()
     {
         Debug.Log("El jugador murio");
-        GameEvents.PlayerTriggerDeath(this.gameObject);
+        
         if (charController != null) charController.enabled = false;
         transform.Rotate(0f, 90f, 0f);
-        //StartCoroutine(PlayerDeathCountdown());
+        
         OnDead?.Invoke();
         Time.timeScale = 0f;
     }
 
-    //private IEnumerator PlayerDeathCountdown()
-    //{
-    //    int timer = 5;
-    //    while (timer > 0)
-    //    {
-    //        Debug.Log($"Reiniciando en {timer}...");
-    //        yield return new WaitForSeconds(1f);
-    //        timer--;
-    //    }
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    //}
+   
 
     
 }

@@ -25,8 +25,5 @@ public class MenuInicial : MonoBehaviour
         SceneManager.LoadScene("Controles"); 
     }
 
-    //public void Exit()
-    //{
-    //    Application.Quit();
-    //}
+    
 }

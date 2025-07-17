@@ -125,7 +125,7 @@ PrefabInstance:
     - target: {fileID: 6620569075549317445, guid: a7bcfe4bc937fe2439f1a1bfd8528e14, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a9154fba39fa282418d552079c6a0ca6, type: 2}
+      objectReference: {fileID: 2100000, guid: 8bd5f8d2663916f498466d308a76851a, type: 2}
     - target: {fileID: 6779222384169439981, guid: a7bcfe4bc937fe2439f1a1bfd8528e14, type: 3}
       propertyPath: m_Name
       value: Cilindro (2)
@@ -195,7 +195,7 @@ PrefabInstance:
     - target: {fileID: 6620569075549317445, guid: a7bcfe4bc937fe2439f1a1bfd8528e14, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a9154fba39fa282418d552079c6a0ca6, type: 2}
+      objectReference: {fileID: 2100000, guid: 8bd5f8d2663916f498466d308a76851a, type: 2}
     - target: {fileID: 6779222384169439981, guid: a7bcfe4bc937fe2439f1a1bfd8528e14, type: 3}
       propertyPath: m_Name
       value: Cilindro (1)
@@ -265,7 +265,7 @@ PrefabInstance:
     - target: {fileID: 6620569075549317445, guid: a7bcfe4bc937fe2439f1a1bfd8528e14, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a9154fba39fa282418d552079c6a0ca6, type: 2}
+      objectReference: {fileID: 2100000, guid: 8bd5f8d2663916f498466d308a76851a, type: 2}
     - target: {fileID: 6779222384169439981, guid: a7bcfe4bc937fe2439f1a1bfd8528e14, type: 3}
       propertyPath: m_Name
       value: Cilindro

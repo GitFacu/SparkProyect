@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDamage 
 {
-    public void TakeDamage(int danioRecibido);
+    public void TakeDamage(int damage);
 
     public void Die();
 }

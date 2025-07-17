@@ -8,70 +8,71 @@ public class BoomerangFunctions : MonoBehaviour
     private BoomerangState state = BoomerangState.Rest;
 
     [Header("References")]
-    public GameObject restBoomerang;
-    public GameObject launchBoomerang;
-    public GameObject meleeBoomerang;
-    public Collider catchZoneCollider;
-    public HUDController hud;
+    [SerializeField] GameObject _restBoomerang;
+    [SerializeField] GameObject _launchBoomerang;
+    [SerializeField] GameObject _meleeBoomerang;
+    [SerializeField] Collider _catchZoneCollider;
+    //[SerializeField] HUDController _hud;
 
     
 
     [Header("Movement Settings")]
-    public float launchSpeed = 10f;
-    public float returnSpeed = 8f;
-    public float maxDistance = 15f;
-    public float collisionDetectRadius = 0.2f;
-    public LayerMask collisionLayers;
-    public float catchDistance = 0.5f;
+    [SerializeField] float _launchSpeed = 10f;
+    [SerializeField] float _returnSpeed = 8f;
+    [SerializeField] float _maxDistance = 15f;
+    [SerializeField] float _collisionDetectRadius = 0.2f;
+    [SerializeField] LayerMask _collisionLayers;
+    [SerializeField] float _catchDistance = 0.5f;
 
     [Header("Rest Position Offset")]
-    public Vector3 restOffset = new Vector3(0, 0, -1);
+    [SerializeField] Vector3 _restOffset = new Vector3(0, 0, -1);
 
     [Header("Launch Offset")]
-    public Vector3 launchOffset = new Vector3(0, 0, 1);
+    [SerializeField] Vector3 _launchOffset = new Vector3(0, 0, 1);
 
     [Header("Melee Settings")]
     [Tooltip("Cooldown (seconds) después de un ataque melee/cargado")]
-    public float meleeCooldown = 2f;
+    [SerializeField] float _meleeCooldown = 2f;
     [Tooltip("Segundos necesarios para carga de ataque cargado")]
-    public float chargeThreshold = 1f;
-    private float meleeCooldownTimer = 0f;
+    [SerializeField] float _chargeThreshold = 1f;
+    private float _meleeCooldownTimer = 0f;
 
-    private bool rightClicked = false;
-    private Vector3 launchDirection;
-    private Vector3 launchStartPosition;
+    private bool _rightClicked = false;
+    private Vector3 _launchDirection;
+    private Vector3 _launchStartPosition;
 
     // Melee state vars
-    private bool isHolding = false;
-    private bool isCharging = false;
-    private float holdTime = 0f;
-    public float multi = 0f;
+    private bool _isHolding = false;
+    private bool _isCharging = false;
+    private float _holdTime = 0f;
+    [SerializeField] float _multi = 0f;
+    public float Multi => _multi;
     private Camera mainCamera;
     private Animator meleeAnimator;
 
     void Start()
     {
         state = BoomerangState.Rest;
-        restBoomerang.SetActive(true);
-        launchBoomerang.SetActive(false);
-        meleeBoomerang.SetActive(false);
-        restBoomerang.transform.localPosition = restOffset;
-        restBoomerang.transform.localRotation = Quaternion.identity;
-        if (catchZoneCollider != null)
-            catchZoneCollider.enabled = true;
+        _restBoomerang.SetActive(true);
+        _launchBoomerang.SetActive(false);
+        _meleeBoomerang.SetActive(false);
+        _restBoomerang.transform.localPosition = _restOffset;
+        _restBoomerang.transform.localRotation = Quaternion.identity;
+        if (_catchZoneCollider != null)
+            _catchZoneCollider.enabled = true;
 
         mainCamera = Camera.main;
-        meleeAnimator = meleeBoomerang.GetComponent<Animator>();
-        multi = 1f;
+        meleeAnimator = _meleeBoomerang.GetComponent<Animator>();
+        _multi = 1f;
     }
 
     void Update()
     {
-        if (meleeCooldownTimer > 0f)
-            meleeCooldownTimer -= Time.deltaTime;
+        if (_meleeCooldownTimer > 0f)
+            _meleeCooldownTimer -= Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(1)) rightClicked = true;
-        if (Input.GetMouseButtonUp(1)) rightClicked = false;
+        if (Input.GetMouseButtonDown(1)) _rightClicked = true;
+        if (Input.GetMouseButtonUp(1)) _rightClicked = false;
 
         switch (state)
         {
@@ -92,27 +93,27 @@ public class BoomerangFunctions : MonoBehaviour
 
     private void HandleRestState()
     {
-        restBoomerang.transform.localPosition = restOffset;
-        restBoomerang.transform.localRotation = Quaternion.identity;
+        _restBoomerang.transform.localPosition = _restOffset;
+        _restBoomerang.transform.localRotation = Quaternion.identity;
 
         // Launch
-        if (rightClicked && Input.GetMouseButtonDown(0) && meleeCooldownTimer <= 0f)
+        if (_rightClicked && Input.GetMouseButtonDown(0) && _meleeCooldownTimer <= 0f)
         {
             Launch();
             return;
         }
 
         // Begin Melee
-        if (Input.GetMouseButtonDown(0) && !rightClicked && meleeCooldownTimer <= 0f)
+        if (Input.GetMouseButtonDown(0) && !_rightClicked && _meleeCooldownTimer <= 0f)
         {
             state = BoomerangState.Melee;
             //hud._barraCarga.gameObject.SetActive(true);
-            isHolding = true;
-            isCharging = false;
-            holdTime = 0f;
+            _isHolding = true;
+            _isCharging = false;
+            _holdTime = 0f;
             Debug.Log("Melee");
             // Play normal attack
-            meleeBoomerang.SetActive(true);
+            _meleeBoomerang.SetActive(true);
             if (meleeAnimator != null)
                 meleeAnimator.Play("Boomerang Attack");
         }
@@ -120,38 +121,38 @@ public class BoomerangFunctions : MonoBehaviour
 
     private void HandleMeleeState()
     {
-        if (!isHolding) return;
-        restBoomerang.SetActive(false);
+        if (!_isHolding) return;
+        _restBoomerang.SetActive(false);
         // 1) Acumular tiempo de hold
-        holdTime += Time.deltaTime;
+        _holdTime += Time.deltaTime;
         // Limitar a threshold para no crecer más
-        holdTime = Mathf.Min(holdTime, chargeThreshold);
+        _holdTime = Mathf.Min(_holdTime, _chargeThreshold);
 
         // 2) Actualizar barra de carga de 0 a 1 de forma totalmente lineal
-        float progress = holdTime / chargeThreshold;
-        hud?.UpdateChargeBar(progress);
+        float progress = _holdTime / _chargeThreshold;
+        //hud?.UpdateChargeBar(progress);
 
         // Obtener estado de animación actual
         AnimatorStateInfo info = meleeAnimator.GetCurrentAnimatorStateInfo(0);
 
         // 3) Al completar animación normal y si mantiene presionado, entrar en carga
-        if (info.IsName("Boomerang Attack") && info.normalizedTime >= 1f && Input.GetMouseButton(0) && !isCharging)
+        if (info.IsName("Boomerang Attack") && info.normalizedTime >= 1f && Input.GetMouseButton(0) && !_isCharging)
         {
-            isCharging = true;
+            _isCharging = true;
             meleeAnimator?.Play("Boomerang Attack Charge");
-            hud?.UpdateChargeBar(1f); // lleno
+            //hud?.UpdateChargeBar(1f); // lleno
             return;
         }
 
         // 4) Si suelta después de cargar o después de iniciar carga
-        if (Input.GetMouseButtonUp(0) && (info.IsName("Boomerang Attack Charge") || isCharging))
+        if (Input.GetMouseButtonUp(0) && (info.IsName("Boomerang Attack Charge") || _isCharging))
         {
-            isHolding = false;
-            isCharging = false;
+            _isHolding = false;
+            _isCharging = false;
             // Release
-            multi = Mathf.Lerp(1f, 2f, Mathf.Clamp01(holdTime / chargeThreshold));
+            _multi = Mathf.Lerp(1f, 2f, Mathf.Clamp01(_holdTime / _chargeThreshold));
             meleeAnimator?.Play("Boomerang Attack Release");
-            hud?.HideChargeBar();
+            //hud?.HideChargeBar();
             StartCoroutine(HideMeleeAfterRelease());
             return;
         }
@@ -159,16 +160,16 @@ public class BoomerangFunctions : MonoBehaviour
         // Release
         if (Input.GetMouseButtonUp(0))
         {
-            if (isCharging)
+            if (_isCharging)
             {
                 if (meleeAnimator != null)
-                    multi = Mathf.Lerp(1f, 2f, Mathf.Clamp01(holdTime / chargeThreshold));
+                    _multi = Mathf.Lerp(1f, 2f, Mathf.Clamp01(_holdTime / _chargeThreshold));
                 meleeAnimator.Play("Boomerang Attack Release");
             }
             // Reset
-            isHolding = false;
+            _isHolding = false;
             state = BoomerangState.Rest;
-            meleeCooldownTimer = meleeCooldown;
+            _meleeCooldownTimer = _meleeCooldown;
             // Hide after animation
             StartCoroutine(HideMeleeAfterRelease());
         }
@@ -179,50 +180,50 @@ public class BoomerangFunctions : MonoBehaviour
         // Wait for release clip length
         AnimatorStateInfo info = meleeAnimator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(info.length);
-        meleeBoomerang.SetActive(false);
-        hud._barraCarga.gameObject.SetActive(false);//
+        _meleeBoomerang.SetActive(false);
+        //hud._barraCarga.gameObject.SetActive(false);//
         state = BoomerangState.Rest;
-        multi = 1f;
-        restBoomerang.SetActive(true);
+        _multi = 1f;
+        _restBoomerang.SetActive(true);
     }
 
     private void Launch()
     {
         state = BoomerangState.Launched;
-        restBoomerang.SetActive(false);
-        launchBoomerang.SetActive(true);
-        launchBoomerang.transform.SetParent(null);
-        launchBoomerang.transform.rotation = Quaternion.identity;
-        Vector3 startPos = transform.position + transform.TransformVector(launchOffset);
-        launchBoomerang.transform.position = startPos;
-        launchStartPosition = startPos;
+        _restBoomerang.SetActive(false);
+        _launchBoomerang.SetActive(true);
+        _launchBoomerang.transform.SetParent(null);
+        _launchBoomerang.transform.rotation = Quaternion.identity;
+        Vector3 startPos = transform.position + transform.TransformVector(_launchOffset);
+        _launchBoomerang.transform.position = startPos;
+        _launchStartPosition = startPos;
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        Vector3 target = ray.origin + ray.direction * maxDistance;
-        launchDirection = (target - startPos).normalized;
-        if (catchZoneCollider != null)
-            catchZoneCollider.enabled = false;
+        Vector3 target = ray.origin + ray.direction * _maxDistance;
+        _launchDirection = (target - startPos).normalized;
+        if (_catchZoneCollider != null)
+            _catchZoneCollider.enabled = false;
     }
 
     private void MoveLaunchBoomerang()
     {
-        Vector3 currentPos = launchBoomerang.transform.position;
+        Vector3 currentPos = _launchBoomerang.transform.position;
         if (state == BoomerangState.Launched)
         {
-            launchBoomerang.transform.position = currentPos + launchDirection * launchSpeed * Time.deltaTime;
-            bool hitEnv = Physics.CheckSphere(currentPos, collisionDetectRadius, collisionLayers);
-            float traveled = Vector3.Distance(launchStartPosition, currentPos);
-            if (hitEnv || traveled >= maxDistance)
+            _launchBoomerang.transform.position = currentPos + _launchDirection * _launchSpeed * Time.deltaTime;
+            bool hitEnv = Physics.CheckSphere(currentPos, _collisionDetectRadius, _collisionLayers);
+            float traveled = Vector3.Distance(_launchStartPosition, currentPos);
+            if (hitEnv || traveled >= _maxDistance)
             {
                 state = BoomerangState.Returning;
-                if (catchZoneCollider != null)
-                    catchZoneCollider.enabled = true;
+                if (_catchZoneCollider != null)
+                    _catchZoneCollider.enabled = true;
             }
         }
         else // Returning
         {
             Vector3 returnDir = (transform.position - currentPos).normalized;
-            launchBoomerang.transform.position = currentPos + returnDir * returnSpeed * Time.deltaTime;
-            if (Vector3.Distance(currentPos, transform.position) <= catchDistance)
+            _launchBoomerang.transform.position = currentPos + returnDir * _returnSpeed * Time.deltaTime;
+            if (Vector3.Distance(currentPos, transform.position) <= _catchDistance)
                 CatchBoomerang();
         }
     }
@@ -230,13 +231,13 @@ public class BoomerangFunctions : MonoBehaviour
     private void CatchBoomerang()
     {
         state = BoomerangState.Rest;
-        launchBoomerang.SetActive(false);
-        restBoomerang.SetActive(true);
-        restBoomerang.transform.localPosition = restOffset;
-        restBoomerang.transform.localRotation = Quaternion.identity;
-        launchBoomerang.transform.SetParent(transform);
-        launchBoomerang.transform.localPosition = launchOffset;
-        if (catchZoneCollider != null)
-            catchZoneCollider.enabled = true;
+        _launchBoomerang.SetActive(false);
+        _restBoomerang.SetActive(true);
+        _restBoomerang.transform.localPosition = _restOffset;
+        _restBoomerang.transform.localRotation = Quaternion.identity;
+        _launchBoomerang.transform.SetParent(transform);
+        _launchBoomerang.transform.localPosition = _launchOffset;
+        if (_catchZoneCollider != null)
+            _catchZoneCollider.enabled = true;
     }
 }

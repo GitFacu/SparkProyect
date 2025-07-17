@@ -4,19 +4,19 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour, IDamage
 {
-    [SerializeField] protected int vida;
+    [SerializeField] protected int _health;
     [SerializeField] protected bool estado;
-    [SerializeField] protected GameObject gameObject;
+    [SerializeField] protected GameObject _mesh;
 
     public virtual void Die()
     {
-        gameObject.SetActive(false);
+        _mesh.SetActive(false);
     }
 
     public virtual void TakeDamage(int danioRecibido)
     {
-        vida -= danioRecibido;
+        _health -= danioRecibido;
 
-        if (vida <= 0) Die();
+        if (_health <= 0) Die();
     }
 }
