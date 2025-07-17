@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cristal : MonoBehaviour, IDamage
 {
-    [SerializeField] private float elementHP = 100;
+    [SerializeField] private float _elementHP = 100;
     [SerializeField] private GameObject _prefab;
     [SerializeField] private Transform _spawnPose;
 
@@ -13,15 +13,15 @@ public class Cristal : MonoBehaviour, IDamage
         Destroy(gameObject);
     }
 
-    public void CreateObject()
+    private void CreateObject()
     {
         GameObject Obj = Instantiate(_prefab,_spawnPose.position,_prefab.transform.rotation);
     }
 
     public void TakeDamage(int danioRecibido)
     {
-        elementHP -= danioRecibido;
-        if (elementHP <= 0)
+        _elementHP -= danioRecibido;
+        if (_elementHP <= 0)
         {
             CreateObject();
             Die();
