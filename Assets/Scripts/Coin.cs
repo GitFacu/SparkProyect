@@ -9,7 +9,8 @@ public class Coin : MonoBehaviour
     [SerializeField] private int _zipCoinPlatinoScore;
     private int _coinAmount;
 
-    
+    [SerializeField] private AudioClip _clip;
+   
 
 
     public static readonly Dictionary<CoinType, int> Coins = new Dictionary<CoinType, int>() //7
@@ -28,7 +29,10 @@ public class Coin : MonoBehaviour
         if (other.gameObject.TryGetComponent<Player>(out Player player))
         {
             player.CoinAmount += Colect();
+            SoundManager.Instance.PlaySound(_clip);
         }
+
+        
     }
 
     private int GetPointsByType() //3

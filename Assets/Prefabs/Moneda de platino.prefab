@@ -4930,6 +4930,7 @@ MonoBehaviour:
   _coinType: 1
   _zipCoinScore: 0
   _zipCoinPlatinoScore: 10
+  _clip: {fileID: 8300000, guid: b3975ae3ad0e967478b57a4acb18114f, type: 3}
 --- !u!65 &8401178959118863972
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -9,6 +9,9 @@ public class PlayerHealth : MonoBehaviour, IDamage
     //[SerializeField] private HUDController hud; // ? Drag en el Inspector
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
+
+    [SerializeField] private AudioClip _hitClip;
+
     public int CurrentHealth
     {
         get { return currentHealth; }
@@ -30,6 +33,8 @@ public class PlayerHealth : MonoBehaviour, IDamage
     public void TakeDamage(int DanioRecibido)
     {
         currentHealth -= DanioRecibido;
+
+        SoundManager.Instance.PlaySound(_hitClip);
 
         Debug.Log($"El jugador recibió {DanioRecibido} de daño. Vida restante: {currentHealth}");
         if (currentHealth <= 0) Die();

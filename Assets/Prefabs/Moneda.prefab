@@ -123,6 +123,7 @@ MonoBehaviour:
   _coinType: 0
   _zipCoinScore: 1
   _zipCoinPlatinoScore: 0
+  _clip: {fileID: 8300000, guid: b3975ae3ad0e967478b57a4acb18114f, type: 3}
 --- !u!114 &-4252135970533772868
 MonoBehaviour:
   m_ObjectHideFlags: 0
