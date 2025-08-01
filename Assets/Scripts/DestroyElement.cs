@@ -25,7 +25,7 @@ public class DestroyElement : MonoBehaviour, IDamage
         if (other.CompareTag("Weapon"))
         {
             TakeDamage(50);
-            
+
         }
     }
 }

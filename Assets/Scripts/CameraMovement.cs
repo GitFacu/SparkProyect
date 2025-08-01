@@ -47,6 +47,7 @@ public class CameraMovement : MonoBehaviour
     private void OnEnable()
     {
         PlayerHealth.OnDead += OnDead;
+        BugTower.OnDead += OnDead;
     }
 
     void Start()
@@ -60,6 +61,7 @@ public class CameraMovement : MonoBehaviour
     private void OnDisable()
     {
         PlayerHealth.OnDead -= OnDead;
+        BugTower.OnDead -= OnDead;
     }
 
     void LateUpdate()

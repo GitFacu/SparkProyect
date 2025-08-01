@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         PlayerHealth.OnDead += OnDead;
+        BugTower.OnDead += OnDead;
     }
 
     void Start()
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         PlayerHealth.OnDead -= OnDead;
+        BugTower.OnDead -= OnDead;
     }
 
     void Update()
