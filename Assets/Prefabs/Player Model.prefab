@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532438961003321738}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 1, z: -5}
+  m_LocalRotation: {x: 0.22557737, y: 0.0015505552, z: 0.008795723, w: 0.9741844}
+  m_LocalPosition: {x: 0.3000015, y: 3.5, z: -7.100055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3492738378643203473}
-  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.071, y: 0.446, z: 1.138}
 --- !u!20 &2761966173680494617
 Camera:
   m_ObjectHideFlags: 0
@@ -105,26 +105,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931131bf66ecbed4383daefa06edb0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 774201231881610089}
-  baseDistance: 6
-  maxDistance: 7
-  mouseSensitivity: 2
-  pitchMin: -13
-  pitchMax: 60
-  distanceLerpSpeed: 2
-  distanceLerpSpeedStop: 1
-  shiftReleaseDelay: 1
-  yOffsetMin: -1
-  yOffsetMax: 1
-  zOffsetMin: -1
-  zOffsetMax: 1
-  aimXOffset: 2
-  aimYOffset: 0.5
-  aimZOffset: 1
-  offsetLerpSpeed: 5
-  aimFOV: 40
-  normalFOV: 60
-  fovLerpSpeed: 5
+  _target: {fileID: 0}
+  _baseDistance: 6
+  _maxDistance: 7
+  _mouseSensitivity: 2
+  _pitchMin: -13
+  _pitchMax: 60
+  _distanceLerpSpeed: 2
+  _distanceLerpSpeedStop: 1
+  _shiftReleaseDelay: 1
+  _yOffsetMin: -1
+  _yOffsetMax: 1
+  _zOffsetMin: -1
+  _zOffsetMax: 1
+  _aimXOffset: 2
+  _aimYOffset: 0.5
+  _aimZOffset: 1
+  _offsetLerpSpeed: 5
+  _aimFOV: 40
+  _normalFOV: 60
+  _fovLerpSpeed: 5
 --- !u!1 &535805095718858660
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,8 +535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f981fad758abd3409b79402225e3979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hud: {fileID: 0}
   maxHealth: 100
+  _hitClip: {fileID: 0}
 --- !u!114 &3016041162376569594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,24 +549,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dc3f83510de20346b6d762cf9516e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restBoomerang: {fileID: 7833663168095645081}
-  launchBoomerang: {fileID: 0}
-  meleeBoomerang: {fileID: 5691084262310264846}
-  catchZoneCollider: {fileID: 1114558042933597254}
-  hud: {fileID: 0}
-  launchSpeed: 60
-  returnSpeed: 60
-  maxDistance: 20
-  collisionDetectRadius: 0.5
-  collisionLayers:
+  _restBoomerang: {fileID: 0}
+  _launchBoomerang: {fileID: 0}
+  _meleeBoomerang: {fileID: 0}
+  _catchZoneCollider: {fileID: 0}
+  _launchSpeed: 10
+  _returnSpeed: 8
+  _maxDistance: 15
+  _collisionDetectRadius: 0.2
+  _collisionLayers:
     serializedVersion: 2
-    m_Bits: 712
-  catchDistance: 1.2
-  restOffset: {x: 0, y: 0.25, z: -0.4}
-  launchOffset: {x: 0, y: 0.25, z: 1.5}
-  meleeCooldown: 1
-  chargeThreshold: 2
-  multi: 1
+    m_Bits: 0
+  _catchDistance: 0.5
+  _restOffset: {x: 0, y: 0, z: -1}
+  _launchOffset: {x: 0, y: 0, z: 1}
+  _meleeCooldown: 2
+  _chargeThreshold: 1
+  _multi: 0
 --- !u!1 &5691084262310264846
 GameObject:
   m_ObjectHideFlags: 0
