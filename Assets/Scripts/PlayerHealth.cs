@@ -50,7 +50,12 @@ public class PlayerHealth : MonoBehaviour, IDamage
         Time.timeScale = 0f;
     }
 
-   
+    public void Heal(int amount)//
+    {
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        Debug.Log("Healed! Current health: " + currentHealth);
+    }
 
-    
+
+
 }
