@@ -30,7 +30,7 @@ public class Cristal : MonoBehaviour, IDamage
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Weapon"))
+        if (other.CompareTag("Cola"))
         {
             TakeDamage(50);
 
